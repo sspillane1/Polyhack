@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import json
 import requests
 
-from pyteaser import SummarizeUrl
-
 
 app = Flask(__name__)
 
@@ -53,13 +51,14 @@ def createjson(st):
 def getInfo(loc=None, top=None):
     output = scraper("homeless%20boston")
 
-
-    for url in output:
+    for url in lis:
         summaries = SummarizeUrl(url)
+
+    ret=createjson(summaries)
 
     #loc, topic
     #art
 
     # the code below is executed if the request method
     # was GET or the credentials were invalid
-    return "Test"
+    return ret
