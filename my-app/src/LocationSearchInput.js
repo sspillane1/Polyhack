@@ -3,6 +3,11 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import ReactDOM from 'react-dom';
+import SelectIssue from './SelectIssue';
+import { Button, FormGroup, FormControl, ControlLabel, InputGroup } from "react-bootstrap";
+
+
 
 class LocationSearchInput extends React.Component {
   constructor(props) {
@@ -17,10 +22,15 @@ class LocationSearchInput extends React.Component {
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => {
-          this.setState((state) => {
-              return { address: results[0].formatted_address}
-          });
-          return getLatLng(results[0])})
+        this.setState((state) => {
+          return { address: results[0].formatted_address }
+        });
+        //change pages
+        ReactDOM.render(<SelectIssue address={results[0].formatted_address} />, document.getElementById('root'));
+
+
+        return getLatLng(results[0])
+      })
       .then(latLng => console.log('Success', latLng))
       .catch(error => console.error('Error', error));
   };
@@ -33,13 +43,26 @@ class LocationSearchInput extends React.Component {
         onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-                className: 'location-search-input',
-              })}
-            />
+          <div className="googleSearch">
+            <br></br>
+            <br></br>
+
+
+
+            <h1>Find issues that impact your community</h1>
+            <br></br>
+            
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon1">Q</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                {...getInputProps({
+                  placeholder: 'Search Places ...',
+                  className: 'location-search-input',
+                })}
+              />
+            </InputGroup>
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {

@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import LocationSearchInput from './LocationSearchInput';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+
 
 ReactDOM.render(<LocationSearchInput />, document.getElementById('root'));
 
