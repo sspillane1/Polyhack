@@ -1,6 +1,8 @@
 # Make sure these are installed
 from bs4 import BeautifulSoup
 import requests
+from pyteaser import SummarizeUrl
+from pprint import pprint
 
 #
 # class Scraper:
@@ -8,10 +10,12 @@ import requests
                 developed by David Kelchner            """
 
 
+
 # def __init__(self, q):
-#     self.query = q
+# #     self.query = q
 
 def scraper(query):
+    url_list = []
     # Grab url of news site to be searched and add search query
     # Can add a switch statement if we want more sites
     url = "https://news.google.com/search?q={}&hl=en-US&gl=US&ceid=US%3Aen".format(query)
@@ -32,14 +36,30 @@ def scraper(query):
                 del raw[i]
 
             # Comment plez
-            print("https://news.google.com/{}".format(raw[i]))
+            url_list.append('https://news.google.com/{}'.format(raw[i]))
         except IndexError:
             # Comment plez
-            print("https://news.google.com/{}".format(raw[i]))
+            url_list.append('https://news.google.com/{}'.format(raw[i]))
         i += 1
 
-#Comment this stuff out
+    for q in range(12):
+        url_list.pop(0)
+
+    return tuple(url_list)
+
+
+# Comment this stuff out
 if __name__ == "__main__":
     # Use this Unicode format though or it will break Google
-    query = "medford%20ma"
-    scraper(query)
+    query = "homelessness%20massachusetts"
+
+    lis = scraper(query)
+
+    urls = (u'https://ktvl.com/news/local/police-help-homeless-people-find-permanent-housing',
+            u'http://www.bbc.co.uk/news/world-europe-30035666',
+            u'http://www.bbc.co.uk/news/magazine-29631332')
+
+
+    for url in lis:
+        summaries = SummarizeUrl(url)
+        pprint(summaries)
