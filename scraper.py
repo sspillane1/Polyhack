@@ -41,5 +41,5 @@ def scraper(query):
 #Comment this stuff out
 if __name__ == "__main__":
     # Use this Unicode format though or it will break Google
-    query = ""# "medford%20ma"
+    query = "medford%20ma"
     scraper(query)
