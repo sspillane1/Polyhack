@@ -57,11 +57,9 @@ def getInfo(loc=None, top=None):
     for url in output:
         summaries = SummarizeUrl(url)
 
-    ret=createjson(summaries)
-
     #loc, topic
     #art
 
     # the code below is executed if the request method
     # was GET or the credentials were invalid
-    return ret
+    return "Test"
